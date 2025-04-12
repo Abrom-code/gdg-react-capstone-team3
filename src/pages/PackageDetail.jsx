@@ -10,63 +10,6 @@ import Taiwan from '../assets/image/destinations/Taiwan.png';
 import Indonesi from '../assets/image/destinations/Indonesi.png';
 import Singapore from '../assets/image/destinations/Singapore.png';
 
-const packages = [
-  // {
-  //   id: 1,
-  //   title: "Paris",
-  //   image: Paris,
-  //   description: "City of lights with a rich culture and heritage.",
-  //   duration: "3 Days / 2 Nights",
-  //   price: "$299.00",
-  //   rating: 5
-  // },
-  // {
-  //   id: 2,
-  //   title: "Swiss",
-  //   image: Swiss,
-  //   description: "A breathtaking alpine escape with snowy peaks.",
-  //   duration: "3 Days / 2 Nights",
-  //   price: "$290.00",
-  //   rating: 5
-  // },
-  // {
-  //   id: 3,
-  //   title: "Thailand",
-  //   image: Thailand,
-  //   description: "Tropical beaches, temples, and street food adventures.",
-  //   duration: "3 Days / 2 Nights",
-  //   price: "$299.00",
-  //   rating: 5
-  // },
-  // {
-  //   id: 4,
-  //   title: "Taiwan",
-  //   image: Taiwan,
-  //   description: "A vibrant mix of tradition, nature, and modernity.",
-  //   duration: "3 Days / 2 Nights",
-  //   price: "$299.00",
-  //   rating: 5
-  // },
-  // {
-  //   id: 5,
-  //   title: "Indonesia",
-  //   image: Indonesi,
-  //   description: "Explore islands, volcanoes, and diverse cultures.",
-  //   duration: "3 Days / 2 Nights",
-  //   price: "$300.00",
-  //   rating: 5
-  // },
-  // {
-  //   id: 6,
-  //   title: "Singapore",
-  //   image: Singapore,
-  //   description: "Futuristic skyline with rich multicultural roots.",
-  //   duration: "3 Days / 2 Nights",
-  //   price: "$299.00",
-  //   rating: 5
-  // }
-];
-
 const renderStars = (rating) => {
   return (
     <div className="flex gap-1 mb-2">
