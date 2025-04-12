@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
 
 
 import Paris from '../assets/image/destinations/Paris.png';
@@ -13,63 +16,17 @@ import package2 from '../assets/image/packages/package2.png';
 import package3 from '../assets/image/packages/package3.png';
 
 const Packages = () => {
-  const packages = [
-    {
-      id: 1,
-      title: "Paris",
-      image: Paris,
-      description: "City of lights with a rich culture and heritage",
-      duration: "3 Days / 2 Nights",
-      price: "$299.00",
-      rating: 5
-    },
-    {
-      id: 2,
-      title: "Swiss",
-      image: Swiss,
-      description: "A breathtaking alpine escape with snowy peaks",
-      duration: "3 Days / 2 Nights",
-      price: "$290.00",
-      rating: 5
-    },
-    {
-      id: 3,
-      title: "Thailand",
-      image: Thailand,
-      description: "Tropical beaches, temples, and street food adventures",
-      duration: "3 Days / 2 Nights",
-      price: "$299.00",
-      rating: 5
-    },
-    {
-      id: 4,
-      title: "Taiwan",
-      image: Taiwan,
-      description: "A vibrant mix of tradition, nature, and modernity",
-      duration: "3 Days / 2 Nights",
-      price: "$299.00",
-      rating: 5
-    },
-    {
-      id: 5,
-      title: "Indonesia",
-      image: Indonesi,
-      description: "Explore islands, volcanoes, and diverse cultures",
-      duration: "3 Days / 2 Nights",
-      price: "$300.00",
-      rating: 5
-    },
-    {
-      id: 6,
-      title: "Singapore",
-      image: Singapore,
-      description: "Futuristic skyline with rich multicultural roots",
-      duration: "3 Days / 2 Nights",
-      price: "$299.00",
-      rating: 5
-    }
-  ];
-
+  const images = [Paris , Swiss , Thailand , Taiwan , Indonesi , Singapore]
+ 
+    const [packages, setPackages] = useState([]);
+  
+    useEffect(() => {
+      fetch('https://67eadc5834bcedd95f64c9f3.mockapi.io/RebelRover/Destinations')
+        .then(res => res.json())
+        .then(data => setPackages(data))
+        .catch(err => console.error('Failed to fetch packages:', err));
+    }, []);
+  
   const renderStars = (rating) => {
     return (
       <div className="flex gap-1">
@@ -110,17 +67,17 @@ const Packages = () => {
         </div>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-10">
-          {packages.map((pkg) => (
+          {packages.slice(0, 6).map((pkg) => (
             <div key={pkg.id} className="bg-white shadow-lg rounded-2xl overflow-hidden">
               <div className="relative h-64 overflow-hidden">
-                <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
+                <img src={images[pkg.id - 1]} alt={pkg.title} className="w-full h-full object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
                   <span className="text-white text-sm font-medium">{pkg.duration}</span>
                 </div>
               </div>
               <div className="p-6">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-2xl font-semibold text-black">{pkg.title}</h3>
+                  <h3 className="text-2xl font-semibold text-black">{pkg.country}</h3>
                   <span className="text-lg font-bold text-black">{pkg.price}</span>
                 </div>
                 <p className="text-gray-600 mb-4 text-sm">{pkg.description}</p>

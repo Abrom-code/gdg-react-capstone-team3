@@ -1,5 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 import Paris from '../assets/image/destinations/Paris.png';
 import Swiss from '../assets/image/destinations/Swiss.png';
@@ -9,60 +11,60 @@ import Indonesi from '../assets/image/destinations/Indonesi.png';
 import Singapore from '../assets/image/destinations/Singapore.png';
 
 const packages = [
-  {
-    id: 1,
-    title: "Paris",
-    image: Paris,
-    description: "City of lights with a rich culture and heritage.",
-    duration: "3 Days / 2 Nights",
-    price: "$299.00",
-    rating: 5
-  },
-  {
-    id: 2,
-    title: "Swiss",
-    image: Swiss,
-    description: "A breathtaking alpine escape with snowy peaks.",
-    duration: "3 Days / 2 Nights",
-    price: "$290.00",
-    rating: 5
-  },
-  {
-    id: 3,
-    title: "Thailand",
-    image: Thailand,
-    description: "Tropical beaches, temples, and street food adventures.",
-    duration: "3 Days / 2 Nights",
-    price: "$299.00",
-    rating: 5
-  },
-  {
-    id: 4,
-    title: "Taiwan",
-    image: Taiwan,
-    description: "A vibrant mix of tradition, nature, and modernity.",
-    duration: "3 Days / 2 Nights",
-    price: "$299.00",
-    rating: 5
-  },
-  {
-    id: 5,
-    title: "Indonesia",
-    image: Indonesi,
-    description: "Explore islands, volcanoes, and diverse cultures.",
-    duration: "3 Days / 2 Nights",
-    price: "$300.00",
-    rating: 5
-  },
-  {
-    id: 6,
-    title: "Singapore",
-    image: Singapore,
-    description: "Futuristic skyline with rich multicultural roots.",
-    duration: "3 Days / 2 Nights",
-    price: "$299.00",
-    rating: 5
-  }
+  // {
+  //   id: 1,
+  //   title: "Paris",
+  //   image: Paris,
+  //   description: "City of lights with a rich culture and heritage.",
+  //   duration: "3 Days / 2 Nights",
+  //   price: "$299.00",
+  //   rating: 5
+  // },
+  // {
+  //   id: 2,
+  //   title: "Swiss",
+  //   image: Swiss,
+  //   description: "A breathtaking alpine escape with snowy peaks.",
+  //   duration: "3 Days / 2 Nights",
+  //   price: "$290.00",
+  //   rating: 5
+  // },
+  // {
+  //   id: 3,
+  //   title: "Thailand",
+  //   image: Thailand,
+  //   description: "Tropical beaches, temples, and street food adventures.",
+  //   duration: "3 Days / 2 Nights",
+  //   price: "$299.00",
+  //   rating: 5
+  // },
+  // {
+  //   id: 4,
+  //   title: "Taiwan",
+  //   image: Taiwan,
+  //   description: "A vibrant mix of tradition, nature, and modernity.",
+  //   duration: "3 Days / 2 Nights",
+  //   price: "$299.00",
+  //   rating: 5
+  // },
+  // {
+  //   id: 5,
+  //   title: "Indonesia",
+  //   image: Indonesi,
+  //   description: "Explore islands, volcanoes, and diverse cultures.",
+  //   duration: "3 Days / 2 Nights",
+  //   price: "$300.00",
+  //   rating: 5
+  // },
+  // {
+  //   id: 6,
+  //   title: "Singapore",
+  //   image: Singapore,
+  //   description: "Futuristic skyline with rich multicultural roots.",
+  //   duration: "3 Days / 2 Nights",
+  //   price: "$299.00",
+  //   rating: 5
+  // }
 ];
 
 const renderStars = (rating) => {
@@ -75,9 +77,17 @@ const renderStars = (rating) => {
   );
 };
 
-const PackageDetails = () => {
+const PackageDetail = () => {
+  const images = [Paris , Swiss , Thailand , Taiwan , Indonesi , Singapore]
   const { id } = useParams();
-  const pkg = packages.find((p) => p.id === parseInt(id));
+  const [pkg, setPkg] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://67eadc5834bcedd95f64c9f3.mockapi.io/RebelRover/Destinations/${id}`)
+      .then(res => res.json())
+      .then(data => setPkg(data))
+      .catch(err => console.error('Failed to fetch package detail:', err));
+  }, [id]);
 
   if (!pkg) {
     return (
@@ -91,7 +101,7 @@ const PackageDetails = () => {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <div className="relative min-h-screen">
-        <img src={pkg.image} alt={pkg.title} className="w-full h-full object-cover" />
+        <img src={images[pkg.id - 1]} alt={pkg.title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white">
           <h1 className="text-5xl font-bold mb-2">{pkg.title}</h1>
           <p className="text-sm font-medium">Home &gt; Packages &gt; {pkg.title}</p>
@@ -101,7 +111,7 @@ const PackageDetails = () => {
       {/* Content */}
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8">
-          <h2 className="text-3xl font-bold mb-4">{pkg.title}</h2>
+          <h2 className="text-3xl font-bold mb-4">{pkg.country}</h2>
           <p className="text-gray-600 mb-4">{pkg.description}</p>
 
           <div className="mb-6">
@@ -131,4 +141,4 @@ const PackageDetails = () => {
   );
 };
 
-export default PackageDetails;
+export default PackageDetail;
